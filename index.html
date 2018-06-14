@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
@@ -20,116 +22,10 @@
       <span class="digital min-digital"></span>
       <span class="digital second-digital"></span>
     </div>
+    <button id="military-time" onclick="timeSwitch(this)">Military Time</button>
+    <button id="standard-time" onclick="timeSwitch(this)">Standard Time</button>
   </div>
 
-
-
-
-  <style>
-    html {
-      background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
-      background-size: cover;
-      font-family: 'helvetica neue';
-      text-align: center;
-      font-size: 10px;
-    }
-
-    body {
-      margin: 0;
-      font-size: 2rem;
-      display: flex;
-      flex: 1;
-      min-height: 100vh;
-      align-items: center;
-    }
-
-    .clock {
-      width: 30rem;
-      height: 30rem;
-      border: 20px solid white;
-      border-radius: 50%;
-      margin: 50px auto;
-      position: relative;
-      padding: 2rem;
-      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1),
-      inset 0 0 0 3px #EFEFEF,
-      inset 0 0 10px black,
-      0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform: translateY(-3px);
-      /* account for the height of the clock hands */
-    }
-
-    .digital-clock {
-      margin-top: 52px;
-      font-size: 57px;
-    }
-
-    .hand {
-      width: 50%;
-      height: 6px;
-      background: black;
-      position: absolute;
-      top: 50%;
-      transform-origin: 100%;
-      transform: rotate(90deg);
-      /* transition: all 0.05s; */
-      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
-    }
-  </style>
-
-  <script>
-    const hourHand = document.querySelector('.hour-hand');
-    const minuteHand = document.querySelector('.min-hand');
-    const secondHand = document.querySelector('.second-hand');
-
-    function timeToDegrees(timeUnit) {
-      return ((timeUnit / 60) * 360) + 90;
-    }
-
-    function setDate() {
-      const now = new Date();
-
-      const hours = now.getHours();
-      const hoursDegrees = timeToDegrees(hours);
-      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
-
-      const minutes = now.getMinutes();
-      const minutesDegrees = timeToDegrees(minutes);
-      minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
-
-      const seconds = now.getSeconds();
-      const secondsDegrees = timeToDegrees(seconds);
-      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
-
-      const hoursDigital = document.querySelector('.hour-digital');
-      hoursDigital.innerHTML = hours > 12 ? `${hours - 12} : ` : `${hours} : `;
-
-      const minutesDigital = document.querySelector('.min-digital');
-      minutesDigital.innerHTML = `${minutes} : `;
-
-      const secondsDigital = document.querySelector('.second-digital');
-      secondsDigital.innerHTML = seconds === 0 ? 60 : seconds;
-
-
-      console.log(document.querySelector('.second-digital'));
-      console.log(hours);
-      // const hands = document.styleSheets[0].rules[4].style;
-      // console.log(document.styleSheets[0].rules[4].style);
-
-      // if (seconds === 0) {
-      //   hands.removeProperty('transition');
-      // }
-
-    }
-
-    setInterval(setDate, 1000);
-  </script>
 </body>
 
 </html>
