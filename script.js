@@ -7,6 +7,10 @@ function timeToDegrees(timeUnit) {
   return ((timeUnit / 60) * 360) + 90;
 }
 
+function addZero(timeNum) {
+  return timeNum < 10 ? `0${timeNum}` : timeNum;
+}
+
 function setDate() {
   const now = new Date();
   const hourHand = document.querySelector('.hour-hand');
@@ -26,18 +30,17 @@ function setDate() {
   secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
   const hoursDigital = document.querySelector('.hour-digital');
-
   if (timeType === 'military-time') {
-    hoursDigital.innerHTML = `${hours} : `;
+    hoursDigital.innerHTML = `${addZero(hours)} : `;
   } else {
-    hoursDigital.innerHTML = hours > 12 ? `${hours - 12} : ` : `${hours} : `;
+    hoursDigital.innerHTML = hours > 12 ? `${addZero(hours - 12)} : ` : `${addZero(hours)} : `;
   }
 
   const minutesDigital = document.querySelector('.min-digital');
-  minutesDigital.innerHTML = `${minutes} : `;
+  minutesDigital.innerHTML = `${addZero(minutes)} : `;
 
   const secondsDigital = document.querySelector('.second-digital');
-  secondsDigital.innerHTML = seconds === 0 ? 60 : seconds;
+  secondsDigital.innerHTML = addZero(seconds);
 
   // const hands = document.styleSheets[0].rules[4].style;
   // console.log(document.styleSheets[0].rules[4].style);
