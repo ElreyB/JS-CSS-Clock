@@ -1,4 +1,3 @@
-// document.querySelector('button').addEventListener('click', timeSwitch);
 let timeType = undefined;
 function timeSwitch(button) {
   timeType = button.id;
