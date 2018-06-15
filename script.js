@@ -14,20 +14,20 @@ function addZero(timeNum) {
 function setDate() {
   const now = new Date();
   const hourHand = document.querySelector('.hour-hand');
-  const minuteHand = document.querySelector('.min-hand');
+  const minHand = document.querySelector('.min-hand');
   const secondHand = document.querySelector('.second-hand');
-
-  const hours = now.getHours();
-  const hoursDegrees = timeToDegrees(hours);
-  hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
-
-  const minutes = now.getMinutes();
-  const minutesDegrees = timeToDegrees(minutes);
-  minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
 
   const seconds = now.getSeconds();
   const secondsDegrees = timeToDegrees(seconds);
   secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+  const mins = now.getMinutes();
+  const minsDegrees = timeToDegrees(mins) + ((seconds / 60) * 6) + 90;
+  minHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+  const hours = now.getHours();
+  const hoursDegrees = ((hours / 12) * 360) + ((mins / 60) * 30) + 90;
+  hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
 
   const hoursDigital = document.querySelector('.hour-digital');
   if (timeType === 'military-time') {
@@ -36,19 +36,19 @@ function setDate() {
     hoursDigital.innerHTML = hours > 12 ? `${addZero(hours - 12)} : ` : `${addZero(hours)} : `;
   }
 
-  const minutesDigital = document.querySelector('.min-digital');
-  minutesDigital.innerHTML = `${addZero(minutes)} : `;
+  const minsDigital = document.querySelector('.min-digital');
+  minsDigital.innerHTML = `${addZero(mins)} : `;
 
   const secondsDigital = document.querySelector('.second-digital');
   secondsDigital.innerHTML = addZero(seconds);
 
-  // const hands = document.styleSheets[0].rules[4].style;
-  // console.log(document.styleSheets[0].rules[4].style);
-
-  // if (seconds === 0) {
-  //   hands.removeProperty('transition');
-  // }
-
+  [seconds, mins, hours].forEach((unit) => {
+    if (unit === 59 || unit === 12 || unit === 0) {
+      secondHand.style.transitionDuration = '0s';
+    } else if (unit === 1) {
+      secondHand.style.transitionDuration = '0.05s';
+    }
+  });
 }
 
 setInterval(setDate, 1000);
