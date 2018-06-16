@@ -2,8 +2,8 @@ let timeType = undefined;
 function timeSwitch(button) {
   timeType = button.id;
 }
-function timeToDegrees(timeUnit) {
-  return ((timeUnit / 60) * 360) + 90;
+function timeToDegrees(timeUnit, hour = true) {
+  return hour ? ((timeUnit / 12) * 360) + 90 : ((timeUnit / 60) * 360) + 90;
 }
 
 function addZero(timeNum) {
@@ -17,15 +17,15 @@ function setDate() {
   const secondHand = document.querySelector('.second-hand');
 
   const seconds = now.getSeconds();
-  const secondsDegrees = timeToDegrees(seconds);
+  const secondsDegrees = timeToDegrees(seconds, false);
   secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
   const mins = now.getMinutes();
-  const minsDegrees = timeToDegrees(mins) + ((seconds / 60) * 6) + 90;
+  const minsDegrees = timeToDegrees(mins, false) + ((seconds / 60) * 6);
   minHand.style.transform = `rotate(${minsDegrees}deg)`;
 
   const hours = now.getHours();
-  const hoursDegrees = ((hours / 12) * 360) + ((mins / 60) * 30) + 90;
+  const hoursDegrees = timeToDegrees(hours) + ((mins / 60) * 30);
   hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
 
   const hoursDigital = document.querySelector('.hour-digital');
